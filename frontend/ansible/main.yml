@@ -1,0 +1,6 @@
+---
+- name: Deploy nginx on EC2
+  hosts: frontend
+
+  roles:
+    - role: nginx

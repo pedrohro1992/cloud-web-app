@@ -1,0 +1,16 @@
+---
+# This is not working
+# - name: Check if Nginx is Installed
+#   ansible.builtin.command: nginx -v
+#   args:
+#     executable: /bin/bash -i
+#   register: nginx_installed
+
+- name: APT Install NGINX WebServer
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    pkg: nginx
+    # This is not working
+  # when: nginx_installed != ""
