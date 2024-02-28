@@ -5,7 +5,8 @@ regions:
   - us-east-1
 
 hostnames:
-  - private-ip-address
+  - ip-address
 
 groups:
   frontend: "'frontend' in tags.Tier"
+  ansible: "'ansible' in tags.App"

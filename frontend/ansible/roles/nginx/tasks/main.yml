@@ -1,16 +1,44 @@
 ---
-# This is not working
-# - name: Check if Nginx is Installed
-#   ansible.builtin.command: nginx -v
-#   args:
-#     executable: /bin/bash -i
-#   register: nginx_installed
-
 - name: APT Install NGINX WebServer
   become: true
   apt:
     update_cache: true
     cache_valid_time: 3600
     pkg: nginx
-    # This is not working
-  # when: nginx_installed != ""
+
+- name: Ensure config path exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ nginx_conf_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Set the nginx config file
+  become: true
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/hello.conf
+    mode: "0755"
+  notify: Restar Nginx
+
+- name: Copy the index file
+  become: true
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /etc/nginx/www/data/index.html
+    mode: "0755"
+  notify: Restar Nginx
+
+- name: Enabler the nginx config file
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/hello.conf
+    dest: /etc/nginx/sites-enabled/hello.conf
+    state: link
+  notify: Restar Nginx
+
+- name: Remove the default nginx config file
+  become: true
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart Nginx

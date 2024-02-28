@@ -4,3 +4,6 @@
 
   roles:
     - role: nginx
+
+
+#Deu errado porque o diretorio www drive na task de copiar o index.html nao existe, ou cria ou ve um jeito melhor de copiar o arquivo
