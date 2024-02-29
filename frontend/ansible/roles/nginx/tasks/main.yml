@@ -6,12 +6,14 @@
     cache_valid_time: 3600
     pkg: nginx
 
+# Verifica se o path /etc/nginx exist e se nao existir cria
 - name: Ensure config path exists
   become: true
   ansible.builtin.file:
     path: "{{ nginx_conf_path }}"
     state: directory
     mode: "0755"
+
 
 - name: Set the nginx config file
   become: true
@@ -21,15 +23,24 @@
     mode: "0755"
   notify: Restar Nginx
 
+# Verifica se o path /etc/nginx/www/data exist e se nao existir cria
+- name: Ensure config path exists
+  become: true
+  ansible.builtin.file:
+    path: "{{ index_conf_path }}"
+    state: directory
+    mode: "0755"
+
 - name: Copy the index file
   become: true
   ansible.builtin.template:
     src: index.html.j2
-    dest: /etc/nginx/www/data/index.html
+    dest: /www/data/index.html
     mode: "0755"
   notify: Restar Nginx
 
 - name: Enabler the nginx config file
+  become: true
   ansible.builtin.file:
     src: /etc/nginx/sites-available/hello.conf
     dest: /etc/nginx/sites-enabled/hello.conf
@@ -41,4 +52,4 @@
   ansible.builtin.file:
     path: /etc/nginx/sites-enabled/default
     state: absent
-  notify: Restart Nginx
+  notify: Restar Nginx
