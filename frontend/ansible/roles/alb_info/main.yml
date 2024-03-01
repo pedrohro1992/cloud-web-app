@@ -1,0 +1,9 @@
+- name: Gather information about ALBs named 'alb1'
+  amazon.aws.elb_application_lb_info:
+    names:
+      - "{{ alb_name }}"
+  register: alb_info
+
+- name: Debug the alb_info playbook
+  ansible.builtin.debug:
+    var: alb_info

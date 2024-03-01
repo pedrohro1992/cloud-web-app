@@ -1,10 +1,18 @@
 ---
+- name: Get ALB Name
+  hosts: localhost
+  roles:
+    - role: alb_info
+
+
 - name: Deploy nginx on EC2
   hosts: frontend
 
   roles:
     - role: nginx
 
-      
 
-#TODO - Adicionar proxy reverso no nginx pra outro nginx rodando em outra maquina
+# TODO - # Adicionar prenchimento dinamico do endereço do loadbalance na frente do backend
+      # Adicionar proxy reverso no nginx pra outro nginx rodando em outra maquina
+      # Parece que deu certo pegar o endereço do ALB mas eu ainda não sei o que ta vindo
+      # preciso aprender a fazer o debug direito do ansible
