@@ -1,0 +1,6 @@
+# ansible_ssh_private_key_file: ../cacetinho-sa-frontend-key.pem
+ansible_ssh_private_key_file: /home/pedro/Workspace/ssh_keys/flask_backend.pem
+
+ansible_ssh_user: ubuntu
+# No recomended for production envioronent
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no"

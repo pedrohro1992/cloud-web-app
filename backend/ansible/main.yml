@@ -1,0 +1,7 @@
+---
+- name: Deploy Flask app on host
+  hosts: backend
+
+  roles:
+    - role: flask
+...

@@ -1,0 +1,13 @@
+---
+plugin: aws_ec2
+aws_profile: default
+regions:
+  - us-east-1
+
+hostnames:
+  - ip-address
+
+groups:
+  backend: "'backend' in tags.Tier"
+  #Set 'ansible' in tags.App on the terraform code to acceess development and test environmentej
+  ansible: "'ansible' in tags.App"
