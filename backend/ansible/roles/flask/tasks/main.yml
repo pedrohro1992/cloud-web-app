@@ -1,3 +1,11 @@
 ---
-# Adicionar tasks para rodar a flask app
+- name: Install pip on machine
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+    pkg: python3.pip
+
+- name: Check if pip is working
+  ansible.builtin.command: pip3 --version
 ...
